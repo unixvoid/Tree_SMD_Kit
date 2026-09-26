@@ -2,11 +2,11 @@
 
 # Ornament PCB
 
-[![Firmware Build](https://github.com/mfaltys/Ornament_PCB/actions/workflows/build.yml/badge.svg)](https://github.com/mfaltys/Ornament_PCB/actions/workflows/build.yml)
-[![Firmware flasher](https://img.shields.io/badge/%F0%9F%94%A5%20Flasher-mfaltys.github.io%2FOrnament__PCB-green.svg)](https://mfaltys.github.io/Ornament_PCB/)
+[![Firmware Build](https://github.com/unixvoid/Tree_SMD_Kit/actions/workflows/build.yml/badge.svg)](https://github.com/unixvoid/Tree_SMD_Kit/actions/workflows/build.yml)
+[![Firmware flasher](https://img.shields.io/badge/%F0%9F%94%A5%20Flasher-unixvoid.github.io%2FTree__SMD__Kit-green.svg)](https://unixvoid.github.io/Tree_SMD_Kit/)
 [![ATtiny1614](https://img.shields.io/badge/ATtiny1614-tinyAVR-0FA0CE?labelColor=333&logo=microchip&logoColor=white)]()
 
-**[Flash an animation directly from your browser → mfaltys.github.io/Ornament_PCB](https://mfaltys.github.io/Ornament_PCB/)**
+**[Flash an animation directly from your browser → unixvoid.github.io/Tree_SMD_Kit](https://unixvoid.github.io/Tree_SMD_Kit/)**
 
 </div>
 
@@ -16,7 +16,7 @@ Coin-cell powered Christmas tree ornament based on the ATtiny1614.
 Press the button to start/stop the animation; the animation auto-stops after
 5 minutes, and the chip sleeps in `POWER_DOWN` (wake on button) when idle to
 save the coin cell. Need to load a new animation? Use the hosted
-[web flasher](https://mfaltys.github.io/Ornament_PCB/) — it talks to your
+[web flasher](https://unixvoid.github.io/Tree_SMD_Kit/) — it talks to your
 ornament right from the browser, no PlatformIO install needed.
 
 ---
@@ -24,7 +24,7 @@ ornament right from the browser, no PlatformIO install needed.
 ## Web flasher
 
 The flasher lives in [`docs/`](docs/) and is deployed to
-**[mfaltys.github.io/Ornament_PCB](https://mfaltys.github.io/Ornament_PCB/)**
+**[unixvoid.github.io/Tree_SMD_Kit](https://unixvoid.github.io/Tree_SMD_Kit/)**
 via GitHub Pages (`.github/workflows/pages.yml` builds the Vite site in
 `docs/` and publishes `docs/dist`).
 
