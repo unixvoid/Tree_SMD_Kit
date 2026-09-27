@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Step-by-step assembly guide for the Ornament SMD soldering kit: hand soldering, hot air reflow and hot plate methods for the ATtiny1614 tree ornament.">
+    <title>Build the Ornament | Assembly guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../build.css">
+</head>
+<body>
+    <main class="shell">
+        <nav class="topbar">
+            <a href="../">&#8592; Ornament flasher</a>
+            <span class="crumb">/ build guide</span>
+        </nav>
+
+        <section class="hero" aria-labelledby="page-title">
+            <p class="eyebrow">SMD soldering kit</p>
+            <h1 id="page-title">Build the ornament.</h1>
+            <p class="lede">Nine 0805 LEDs, nine 0805 resistors, two capacitors, an ATtiny1614 and a
+                button - on a board where every pad is printed with the value of the part that
+                lives there. Work through it one component at a time, flash an animation, and hang it up.</p>
+            <ul class="meta-chips">
+                <li><span class="chip-label">Time</span><strong>45&ndash;60 min</strong></li>
+                <li><span class="chip-label">Difficulty</span><strong>Moderate</strong></li>
+                <li><span class="chip-label">Parts</span><strong>9 LED &middot; 9 R &middot; 2 C &middot; MCU</strong></li>
+                <li><span class="chip-label">Methods</span><strong>Iron / hot air / plate</strong></li>
+            </ul>
+        </section>
+
+        <div class="guide-layout">
+            <nav class="step-rail" aria-label="Guide contents">
+                <p class="rail-title">Overview</p>
+                <ul class="rail-list">
+                    <li><a href="#kit">What's in the kit</a></li>
+                    <li><a href="#methods">Three ways to build it</a></li>
+                    <li><a href="#hand-soldering">Hand soldering technique</a></li>
+                    <li><a href="#basics">Before you start</a></li>
+                </ul>
+                <p class="rail-title">Steps</p>
+                <ul class="rail-list">
+                    <li><a href="#step-01">01 &middot; Yellow LED</a></li>
+                    <li><a href="#step-02">02 &middot; Green LEDs</a></li>
+                    <li><a href="#step-03">03 &middot; Red LEDs</a></li>
+                    <li><a href="#step-04">04 &middot; 4.7 &micro;F cap</a></li>
+                    <li><a href="#step-05">05 &middot; 0.1 &micro;F cap</a></li>
+                    <li><a href="#step-06">06 &middot; 310 &Omega; resistors</a></li>
+                    <li><a href="#step-07">07 &middot; 390 &Omega; resistors</a></li>
+                    <li><a href="#step-08">08 &middot; ATtiny1614</a></li>
+                    <li><a href="#step-09">09 &middot; Button</a></li>
+                    <li><a href="#step-10">10 &middot; Reflow pass</a></li>
+                    <li><a href="#step-11">11 &middot; Battery holder</a></li>
+                    <li><a href="#step-12">12 &middot; Flash firmware</a></li>
+                    <li><a href="#step-13">13 &middot; Battery &amp; test</a></li>
+                </ul>
+                <p class="rail-title">Finishing</p>
+                <ul class="rail-list">
+                    <li><a href="#finishing">Final checks</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting</a></li>
+                </ul>
+            </nav>
+
+            <div class="guide-body">
+                <section class="panel" id="kit" aria-labelledby="kit-title">
+                    <div class="section">
+                        <h2 id="kit-title"><span class="step-num">1</span> What's in the kit</h2>
+                        <p>Everything here is 0805 or larger, so it is all hand-placeable. Every pad on the
+                            board is printed with the value of the part that goes on it.</p>
+                        <figure class="shot">
+                            <img src="/img/kit-contents.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                 alt="Every part in the kit laid out in labelled groups: nine 0805 LEDs by color, two capacitors, two groups of resistors, the ATtiny1614, button, CR2032 holder and cell.">
+                            <figcaption>Everything you should find in the bag.</figcaption>
+                        </figure>
+
+                        <div class="table-wrap">
+                            <table class="data-table kit-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Qty</th>
+                                        <th scope="col">Part</th>
+                                        <th scope="col">Where it goes</th>
+                                        <th scope="col">Watch out for</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1</td><td>Yellow LED, 0805</td><td>Very top of the tree - it's the star</td><td>Polarised</td></tr>
+                                    <tr><td>4</td><td>Green LED, 0805</td><td>Sides of the tree - two left, two right</td><td>Polarised</td></tr>
+                                    <tr><td>4</td><td>Red LED, 0805</td><td>Sides of the tree - two left, two right</td><td>Polarised</td></tr>
+                                    <tr><td>1</td><td>4.7 &micro;F capacitor, 0805</td><td>Center of the board, above the ATtiny footprint</td><td>Unpolarised</td></tr>
+                                    <tr><td>1</td><td>0.1 &micro;F capacitor, 0805</td><td>Center of the board, above the ATtiny footprint</td><td>Unpolarised</td></tr>
+                                    <tr><td>5</td><td>310 &Omega; resistor, 0805</td><td>One at the yellow LED, one beside each green LED</td><td>Unpolarised</td></tr>
+                                    <tr><td>4</td><td>390 &Omega; resistor, 0805</td><td>Beside each red LED</td><td>Unpolarised</td></tr>
+                                    <tr><td>1</td><td>ATtiny1614</td><td>Dead center of the board, front side</td><td>Dot marks pin 1 - top-left</td></tr>
+                                    <tr><td>1</td><td>Button</td><td>Near the base of the tree</td><td>Works either way round</td></tr>
+                                    <tr><td>1</td><td>CR2032 holder</td><td>Center of the <em>back</em> of the board</td><td>Through-hole - always last</td></tr>
+                                    <tr><td>1</td><td>CR2032 cell</td><td>Into the holder, once the firmware is flashed</td><td>Not fitted until the very end</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tip">
+                            <strong>Spares included</strong>
+                            <p>The kit ships with an extra of each LED, each capacitor and each resistor value,
+                                because 0805 parts are easy to lose. If one pings off into the carpet, you don't
+                                have to stop and order another.</p>
+                        </div>
+
+                        <h3>What you'll need</h3>
+                        <ul class="checklist">
+                            <li><strong>Iron, hot air or hot plate</strong> - any one of the three. A fine
+                                tip for hand soldering; paste plus a hot plate or air gun for reflow.</li>
+                            <li><strong>Solder or solder paste</strong> - thin wire for hand soldering,
+                                paste if you're reflowing. Don't use both on the same joint.</li>
+                            <li><strong>Flux</strong> - a pen or a paste. Reflow paste already contains
+                                some, but a little extra makes the joints flow.</li>
+                            <li><strong>Fine tweezers</strong> - you cannot place an 0805 part with your
+                                fingers.</li>
+                            <li><strong>A magnifier</strong> - a loupe, a USB microscope, or your phone's
+                                camera zoomed right in. You'll need it to check LED orientation and joints.</li>
+                            <li><strong>Isopropyl alcohol and a small brush</strong> - to clean the flux
+                                off at the end.</li>
+                            <li><strong>A UPDI programmer</strong> - plus a computer running Chrome, Edge
+                                or Opera. Needed at step 12.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="panel" id="methods" aria-labelledby="methods-title">
+                    <div class="section">
+                        <h2 id="methods-title"><span class="step-num">2</span> Three ways to build it</h2>
+                        <p>All three routes end at the same board, the only
+                            real difference is <em>when</em> the solder goes on: with an iron you solder each part as
+                            you place it, whereas with paste you place everything first and melt it all in one pass.
+                            Use whichever you already own.</p>
+                        <div class="method-grid">
+                            <article class="method-card recommended">
+                                <span class="tag">Recommended</span>
+                                <h3>Hot plate</h3>
+                                <p>If you have one, this is the quickest and the most consistent. You put solder
+                                    paste on every pad, place all the parts, then heat the whole board until the
+                                    paste turns from grey to shiny silver.</p>
+                            </article>
+
+                            <article class="method-card">
+                                <span class="tag">Good middle ground</span>
+                                <h3>Hot air reflow</h3>
+                                <p>Solder paste plus a hot air gun. Reflow the whole front side at once, or work
+                                    one area at a time if you'd rather keep an eye on a small section. It's also
+                                    the easiest way to re-seat a single part later.</p>
+                            </article>
+
+                            <article class="method-card">
+                                <span class="tag">No special tools</span>
+                                <h3>Hand soldering</h3>
+                                <p>A fine-tip/chisel-tip iron and a little thin solder, and you're set - that's the whole
+                                    shopping list. You tack down one side the component, then solder the other side.  0805 
+                                    parts are comfortably big enough to place by hand, and the whole board is about an hour's work.</p>
+                            </article>
+                        </div>
+                        <h3>What each method looks like</h3>
+                        <figure class="shot">
+                            <img src="/img/method-hot-plate.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                 alt="The ornament board sitting on a hot plate with every part placed, photographed at the moment the solder paste turns shiny.">
+                            <figcaption>Hot plate - paste applied, all parts placed, one heat cycle to finish.</figcaption>
+                        </figure>
+
+                        <figure class="shot">
+                            <img src="/img/method-hot-air.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                 alt="A hot air nozzle held above one corner of the ornament board, reflowing a group of 0805 components.">
+                            <figcaption>Hot air - the same paste, melted one area at a time.</figcaption>
+                        </figure>
+                        <figure class="shot">
+                            <img src="/img/method-hand-soldering.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                 alt="A fine soldering iron tip touching one pad of an 0805 component on the ornament board.">
+                            <figcaption>Hand soldering - one pad tacked at a time, no paste involved.</figcaption>
+                        </figure>
+                    </div>
+                </section>
+
+                <section class="panel" id="hand-soldering" aria-labelledby="hand-soldering-title">
+                    <div class="section">
+                        <h2 id="hand-soldering-title"><span class="step-num">3</span> Hand soldering technique</h2>
+                        <p>A fine-tip/chisel-tip iron and a little thin solder is genuinely all this kit needs 
+                            - 0805 parts are comfortably big enough to place and solder by hand.</p>
+                        <div class="note">
+                            <strong>Using solder paste instead?</strong>
+                            <p>Skip ahead to <a href="#basics">Before you start</a>. Steps 1&ndash;9 are placement
+                                only for you, and step 10 melts everything in one pass.</p>
+                        </div>
+
+                        <h3>Tack one pad, then solder the other</h3>
+                        <p>The trick with an 0805 part is never to try to solder both ends at once:</p>
+                        <ol class="numbered">
+                            <li>Put a small blob of solder on <em>one</em> pad only.</li>
+                            <li>Pick the part up with tweezers and set it down on that tinned pad.</li>
+                            <li>Touch the iron to the pad for a moment to reflow the joint, then let go of the
+                                part.</li>
+                            <li>Now solder the other pad normally. The first joint holds the part still while you
+                                work.</li>
+                        </ol>
+
+                        <figure class="shot">
+                            <img src="/img/technique-tack-one-pad.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                 alt="A macro of a single 0805 pad carrying a small solder blob, with the matching pad beside it still bare.">
+                            <figcaption>One pad tinned, one pad bare. Place the part on the blob, reflow it, then do
+                                the other side.</figcaption>
+                        </figure>
+                        <h3>What a good joint looks like</h3>
+                        <p>A good joint is a small, shiny fillet curving up from the pad onto the part - a
+                            concave slope, not a ball. It's smooth and it catches the light, and once you've made a
+                            couple you'll recognise one instantly. Here's the whole vocabulary:</p>
+                        <ul>
+                            <li><strong>Shiny and concave</strong> - correct. Move on.</li>
+                            <li><strong>Dull, grainy or blobby</strong> - a cold joint. Either the solder never
+                                fully melted or the part moved while it set. Add flux and reflow it.</li>
+                            <li><strong>A ball sitting on top of the pad</strong> - not soldered at all: the
+                                solder never wet the part. Flux and reflow.</li>
+                            <li><strong>Solder joining two pads</strong> - a bridge. Add flux and drag the iron
+                                away from the bridge to pull the excess solder off with it.</li>
+                        </ul>
+                        <p>Every one of those is a case of adding flux and touching the joint again with the iron
+                            - nothing on that list is a disaster, and none of it needs a new part.</p>
+
+                    </div>
+                </section>
+
+                <section class="panel" id="basics" aria-labelledby="basics-title">
+                    <div class="section">
+                        <h2 id="basics-title"><span class="step-num">4</span> Before you start</h2>
+                        <p>Every pad on this board is printed with the value of the part that goes on it. That's
+                            the whole reason this guide can be a plain list: you never have to count pins or
+                            cross-reference a schematic, you just read the board. Work through it one value at a
+                            time, in the order below.</p>
+
+                        <figure class="shot">
+                            <img src="/img/pcb-bare-front.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                 alt="The bare front side of the ornament PCB, photographed straight down so every printed component value is readable.">
+                            <figcaption>The bare board. Every part in this guide is placed by reading these labels.</figcaption>
+                        </figure>
+                        <h3>The one thing you can get wrong: LED orientation</h3>
+                        <p>The LEDs are polarised, and unlike a resistor or a capacitor you can't shrug and
+                            carry on if one goes on backwards - it has to come back off. Two marks make it
+                            easy to get right the first time:</p>
+                        <ul>
+                            <li><strong>On the LED's underside</strong> there's a small printed line. It points
+                                towards the <em>cathode</em> end of the part.</li>
+                            <li><strong>On the board</strong>, the silkscreen outline around each LED has a
+                                <em>half-square</em> notch on one end. That's the cathode end.</li>
+                        </ul>
+                        <p>Point the line at the half-square and the LED is facing the right way.</p>
+
+                        <figure class="shot compact">
+                            <img src="/img/led-polarity.jpg" width="200" height="200" loading="lazy" decoding="async" tabindex="0"
+                                 alt="Macro photograph of an 0805 LED seen from below, showing the printed line that marks the cathode end.">
+                            <figcaption>The line is on the <em>underside</em> of the LED, so you have to turn it
+                                over to see it. That's what has to point at the board's half-square mark.</figcaption>
+                            <p class="shot-byline">Vendor photo, DigiKey -
+                                <a href="https://mm.digikey.com/Volume0/opasdata/d220001/derivates/1/002/623/978/Chippled%200805_sml%28200x200%29.jpg" target="_blank" rel="noreferrer">source &#8599;</a></p>
+                        </figure>
+                        <figure class="shot">
+                            <img src="/img/led-cathode-align.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                 alt="An 0805 LED placed on its pads with the printed line on its underside pointing at the half-square cathode mark on the PCB silkscreen.">
+                            <figcaption>The line on the LED's underside sitting under the half-square mark on
+                                the silkscreen. Line them up like this and the LED is the right way
+                                round, just upside down.</figcaption>
+                        </figure>
+
+                        <h3>Soldering Steps</h3>
+                        <p>Steps 1 to 9 place every surface-mount part on the front of the board. What you
+                            actually <em>do</em> during each of those steps depends on your method:</p>
+                        <ul>
+                            <li><strong>Hand soldering</strong> - solder each part as you place it, so steps
+                                1&ndash;9 finish the front side on their own, and skip step 10. The technique is in
+                                <a href="#hand-soldering">Hand soldering technique</a> above.</li>
+                            <li><strong>Paste methods</strong> (hot plate or hot air) - only <em>place</em>
+                                the parts during steps 1&ndash;9. Nothing gets soldered until step 10's single
+                                reflow pass, so don't worry that the parts are loose.</li>
+                        </ul>
+
+                        <div class="note">
+                            <strong>The finish line</strong>
+                            <p>Step 11 solders the battery holder to the <em>back</em> of the board, step 12
+                                flashes an animation over UPDI, and step 13 fits the coin cell and tests. Do not
+                                fit the battery before step 12 - the chip has to be flashed first, and the
+                                cell is the last thing that goes on.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel" id="steps" aria-labelledby="steps-title">
+                    <div class="section">
+                        <h2 id="steps-title"><span class="step-num">5</span> Assembly steps</h2>
+                        <p>Thirteen steps, in the order that keeps the board easiest to work on: the parts with
+                            the tightest clearance around them first, the through-hole battery holder last, and
+                            the coin cell only once the firmware is in.</p>
+                        <ol class="steps">
+                            <li class="step" id="step-01">
+                                <div class="step-head">
+                                    <span class="step-badge">01</span>
+                                    <h3>The yellow LED - the star on top</h3>
+                                </div>
+                                <p>Find the single yellow LED and place it at the very top of the tree. It's the
+                                    star.</p>
+                                <ol class="step-notes">
+                                    <li>The line printed on the LED's underside points at the half-square mark on
+                                        the silkscreen.</li>
+                                </ol>
+                                <p class="muted">Hand soldering: tack one pad, check the LED is flat and centered,
+                                    then reflow the other pad. Paste: place it only - step 10 melts it.</p>
+                                <figure class="shot">
+                                    <img src="/img/step-01-yellow-led.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                         alt="The yellow 0805 LED placed on the topmost footprint of the tree PCB, its cathode line aligned with the silkscreen half-square.">
+                                    <figcaption>The star of the tree - one yellow LED, one footprint, at the top.</figcaption>
+                                </figure>
+                            </li>
+                            <li class="step" id="step-02">
+                                <div class="step-head">
+                                    <span class="step-badge">02</span>
+                                    <h3>The four green LEDs - the tree's sides</h3>
+                                </div>
+                                <p>Place the four green LEDs on the sides of the tree: two on the left edge, two on
+                                    the right, facing each other in pairs.</p>
+                                <figure class="shot">
+                                    <img src="/img/step-02-green-leds.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                         alt="All four green LEDs placed on the left and right sides of the tree PCB, seen straight down.">
+                                    <figcaption>Four green LEDs: two down each side, in matching pairs.</figcaption>
+                                </figure>
+                            </li>
+                            <li class="step" id="step-03">
+                                <div class="step-head">
+                                    <span class="step-badge">03</span>
+                                    <h3>The four red LEDs</h3>
+                                </div>
+                                <p>Place the four red LEDs on the remaining side footprints - again two down the
+                                    left edge and two down the right. Each side of the tree has four LED footprints
+                                    in total, so the reds sit alongside the greens you just placed. The silkscreen
+                                    tells you which footprint takes which color.</p>
+                                <figure class="shot">
+                                    <img src="/img/step-03-red-leds.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                         alt="All four red LEDs placed on the sides of the tree PCB alongside the four green LEDs, seen straight down.">
+                                    <figcaption>All nine LEDs placed - the star, four green, four red.</figcaption>
+                                </figure>
+                            </li>
+                            <li class="step" id="step-04">
+                                <div class="step-head">
+                                    <span class="step-badge">04</span>
+                                    <h3>The 4.7 &micro;F capacitor</h3>
+                                </div>
+                                <p>Place the 4.7 &micro;F capacitor in the middle of the board, in the footprint
+                                    directly above where the ATtiny1614 will sit.</p>
+                                <p class="muted">Capacitors are unpolarised, so either orientation is correct
+                                    - just make sure it's sitting flat and centered on both pads.</p>
+                                <figure class="shot">
+                                    <img src="/img/step-04-4u7-cap.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                         alt="The 4.7 microfarad capacitor placed in the middle of the board, directly above the ATtiny1614 footprint.">
+                                    <figcaption>The 4.7 &micro;F cap, sitting above the chip footprint in the middle of the board.</figcaption>
+                                </figure>
+                            </li>
+
+                            <li class="step" id="step-05">
+                                <div class="step-head">
+                                    <span class="step-badge">05</span>
+                                    <h3>The 0.1 &micro;F capacitor</h3>
+                                </div>
+                                <p>Place the 0.1 &micro;F capacitor in the remaining mid-board footprint, sitting
+                                    below the 4.7 &micro;F you just placed. Both capacitors end up in the middle of
+                                    the board, above the chip.</p>
+                                <p class="muted">The two capacitors look almost identical once they're out of the bag,
+                                    so the only reliable way to tell them apart is the label on the pad you took each
+                                    one from.</p>
+                                <figure class="shot">
+                                    <img src="/img/step-05-0u1-cap.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                         alt="Both capacitors fitted in the middle of the board above the ATtiny1614 footprint.">
+                                    <figcaption>Both capacitors in place, in the middle of the board above the
+                                        chip footprint.</figcaption>
+                                </figure>
+                            </li>
+                            <li class="step" id="step-06">
+                                <div class="step-head">
+                                    <span class="step-badge">06</span>
+                                    <h3>The five 310 &Omega; resistors</h3>
+                                </div>
+                                <p>Place the five 310 &Omega; resistors: one at the yellow LED on top, and one beside
+                                    each of the four green LEDs.</p>
+                                <ol class="step-notes">
+                                    <li>The resistor at the yellow LED.</li>
+                                    <li>Beside each of the four green LEDs.</li>
+                                </ol>
+                                <p class="muted">The 310 &Omega; and 390 &Omega; resistors look identical once they're
+                                    out of the bag. Keep them in two separate piles from the moment you open the kit
+                                    - the value printed on the pad is the only thing that tells them apart.</p>
+                                <figure class="shot">
+                                    <img src="/img/step-06-310r-resistors.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                         alt="All five 310 ohm resistors placed on the board, one at the yellow LED and one beside each green LED.">
+                                    <figcaption>Five 310 &Omega; resistors: one for the star, one beside each green LED.</figcaption>
+                                </figure>
+                            </li>
+                            <li class="step" id="step-07">
+                                <div class="step-head">
+                                    <span class="step-badge">07</span>
+                                    <h3>The four 390 &Omega; resistors</h3>
+                                </div>
+                                <p>Place the four 390 &Omega; resistors - one beside each of the red LEDs.
+                                    That's the last of the passives.</p>
+                                <figure class="shot">
+                                    <img src="/img/step-07-390r-resistors.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                         alt="All four 390 ohm resistors placed on the board beside the red LEDs, seen straight down.">
+                                    <figcaption>Four 390 &Omega; resistors, one per red LED. Front-side passives are done.</figcaption>
+                                </figure>
+                            </li>
+                            <li class="step" id="step-08">
+                                <div class="step-head">
+                                    <span class="step-badge">08</span>
+                                    <h3>The ATtiny1614</h3>
+                                </div>
+                                <p>Place the chip in the dead center of the board. This is the one part where the
+                                    orientation is not optional: there's a small dot on one corner of the package, and
+                                    that corner has to sit at the <strong>top-left</strong> of the footprint. The
+                                    silkscreen mark (small triangle) indicates the matching corner, so line the two 
+                                    up before you set the chip down.</p>
+                                <p class="muted">Hand soldering: tack one corner pin, re-check the alignment, then work
+                                    around the rest of the pins. Paste: place it and let step 10 do the work.</p>
+                                <figure class="shot">
+                                    <img src="/img/step-08-attiny-orientation.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                         alt="The ATtiny1614 positioned on its center footprint with the molded pin-1 dot lined up with the corner mark printed on the silkscreen.">
+                                    <figcaption>The dot on the package lined up with the corner mark on the
+                                        silkscreen.</figcaption>
+                                </figure>
+                            </li>
+                            <li class="step" id="step-09">
+                                <div class="step-head">
+                                    <span class="step-badge">09</span>
+                                    <h3>The button</h3>
+                                </div>
+                                <p>Place the button near the base of the tree. There's no polarity to worry about
+                                    - it works either way round - so just seat it flat on its pads.</p>
+                                <p>That's the last of the surface-mount parts. Once this one is down, the front of the
+                                    board is fully populated.</p>
+                                <p class="muted">Hand soldering: hold the button flat with a finger or a pair
+                                    of tweezers while you tack the first pad.</p>
+                                <figure class="shot">
+                                    <img src="/img/step-09-button.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                         alt="The button placed and seated flat near the base of the tree PCB, with the bottom edge of the board visible in frame.">
+                                    <figcaption>The button, seated flat near the base. Front side complete.</figcaption>
+                                </figure>
+                            </li>
+                            <li class="step" id="step-10">
+                                <div class="step-head">
+                                    <span class="step-badge">10</span>
+                                    <h3>The reflow pass</h3>
+                                </div>
+                                <div class="note">
+                                    <strong>Hand soldering? Skip this step</strong>
+                                    <p>If you soldered each part as you placed it, the front of the board is already
+                                        finished. Go straight on to step 11.</p>
+                                </div>
+                                <p>Everything on the front of the board gets soldered in this one pass. Heat the board
+                                    evenly and watch the paste change appearance as it heats up and flows out.</p>
+                                <ul>
+                                    <li><strong>Hot plate</strong> - set the plate 20&ndash;30 &deg;C above the
+                                        melting point of your paste and follow the paste's datasheet. Leaded paste
+                                        melts around 183 &deg;C; lead-free (SAC305) around 217&ndash;220 &deg;C.</li>
+                                    <li><strong>Hot air</strong> - keep the airflow at the lowest setting that
+                                        works. An 0805 part weighs almost nothing and a strong stream will blow them
+                                        clean off the board. Move the nozzle in slow circles and never park it in one
+                                        spot.</li>
+                                </ul>
+                                <p>Once the solder is molten, surface tension
+                                    pulls a part that's slightly off-center back into line and up onto its pads.</p>
+                                <div class="warning">
+                                    <strong>Let it cool before you touch it</strong>
+                                    <p>Pull the heat and let the board come back to room temperature on its own. Don't
+                                        move it, don't blow on it, and don't pick it up while the joints are still
+                                        liquid - a joint disturbed while it solidifies sets dull and brittle.</p>
+                                </div>
+                                <figure class="shot">
+                                    <img src="/img/step-10-reflow-pass.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                         alt="The ornament board mid-reflow, with some joints already shiny and molten and others still matte grey paste.">
+                                    <figcaption>Freshly reflowed board, with all joints shiny and properly formed.</figcaption>
+                                </figure>
+                            </li>
+                            <li class="step" id="step-11">
+                                <div class="step-head">
+                                    <span class="step-badge">11</span>
+                                    <h3>The battery holder - the back side</h3>
+                                </div>
+                                <div class="note">
+                                    <strong>Turn the board over</strong>
+                                    <p>The holder is the only through-hole part in the kit and it goes on the
+                                        <em>back</em> of the board.</p>
+                                </div>
+                                <p><strong>Before the holder gets installed:</strong> put a small blob
+                                    of solder on the single pad in the middle of the footprint - the one the
+                                    cell's ground terminal contacts. That blob gives the cell a better connection than
+                                    a bare flat pad would, and it's far easier to do now than once the holder is
+                                    soldered down around it.</p>
+                                <p class="muted">A small bump is all you want - just visibly raised above the
+                                    surrounding copper. A big dome of solder will stop the cell sitting flat.</p>
+                                <figure class="shot">
+                                    <img src="/img/step-11-cr2032-gnd-pretin.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                         alt="A tight macro of the single center pad inside the battery holder footprint, carrying a small shiny solder bump while every surrounding pad is bare.">
+                                    <figcaption>One small blob on the center pad - the cell's ground contact.</figcaption>
+                                </figure>
+                                <p>Now drop the holder into its holes in the center of the back of the board.
+                                    Orient it so the cell goes in from the top - check it against the footprint
+                                    before you commit, because it only goes on one way round. Then solder the pins
+                                    from the back.</p>
+                                <p class="muted">Press the holder down flush before you solder the first pin, and keep
+                                    holding it while that joint sets. If the pins stick through a long way, trim them
+                                    with flush cutters once every joint has cooled.</p>
+                                <figure class="shot">
+                                    <img src="/img/step-11-cr2032-holder.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                         alt="The CR2032 holder soldered to the center of the back of the board, with its pins through the board and one pin jointed.">
+                                    <figcaption>The holder seated on the back with the cell opening facing up. Its
+                                        pins are the only through-hole joints on the board.</figcaption>
+                                </figure>
+                            </li>
+                            <li class="step" id="step-12">
+                                <div class="step-head">
+                                    <span class="step-badge">12</span>
+                                    <h3>Flash an animation - with the cell still out</h3>
+                                </div>
+                                <p>The board is built, but the chip is still blank and the board will do nothing until
+                                    it's programmed. Leave the cell out of the holder for now and flash the ornament
+                                    first.</p>
+                                <ol class="numbered">
+                                    <li>Hook up a UPDI programmer to the board's UPDI pads - either the
+                                        programmer sold alongside the kit or any UPDI adapter you already own.</li>
+                                    <li>Open the flasher at
+                                        <a href="https://unixvoid.github.io/Tree_SMD_Kit/">unixvoid.github.io/Tree_SMD_Kit</a>
+                                        in Chrome, Edge or Opera. Web Serial is required, so Firefox and Safari will
+                                        not work.</li>
+                                    <li>Click <strong>Connect</strong>, pick an animation from the list, and click
+                                        <strong>Program Device</strong>. It writes the firmware, then reads it back to
+                                        verify.</li>
+                                </ol>
+                                <p>Programming also sets the brown-out fuse, which is what keeps the ornament
+                                    behaving as the coin cell drains rather than glitching at the end of the cell's
+                                    life. You don't have to do anything for that - it's part of the same
+                                    programming step.</p>
+                                <div class="tip">
+                                    <strong>Stuck on "no device found"?</strong>
+                                    <p>Check the UPDI connection first, then that the board is actually getting
+                                        power. Nothing has to be pressed or held for programming to work.</p>
+                                </div>
+                                <figure class="shot">
+                                    <img src="/img/step-12-updi-flash.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                         alt="A UPDI programmer connected to the ornament board's UPDI pads on a workbench, with the browser flasher page visible on a laptop behind it.">
+                                    <figcaption>The programmer hooked up to the board's UPDI pads. The browser
+                                        flasher does the rest.</figcaption>
+                                </figure>
+                            </li>
+                            <li class="step" id="step-13">
+                                <div class="step-head">
+                                    <span class="step-badge">13</span>
+                                    <h3>The coin cell, and the first light</h3>
+                                </div>
+                                <p>Slide the CR2032 into the holder with the <strong>+</strong> marking facing up,
+                                    away from the board. The flat side is the negative terminal, and that's the face
+                                    that contacts the pad you pre-tinned in step 11. Check the marking on the cell
+                                    against the holder before you slide it home.</p>
+                                <p>Then press the button. The animation should start straight away, and pressing the
+                                    button again stops it. After five minutes it stops on its own and the chip drops
+                                    into a deep sleep to protect the cell - press the button to wake it up
+                                    again.</p>
+                                <figure class="shot">
+                                    <img src="/img/step-13-battery-test.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                         alt="The CR2032 cell pressed into the holder with the positive marking facing up, and the finished ornament lit with all nine LEDs glowing.">
+                                    <figcaption>A working ornament: cell in, animation running.</figcaption>
+                                </figure>
+                            </li>
+                        </ol>
+                    </div>
+                </section>
+                <section class="panel" id="finishing" aria-labelledby="finishing-title">
+                    <div class="section">
+                        <h2 id="finishing-title"><span class="step-num">6</span> Final checks</h2>
+                        <p>One slow pass over both sides of the board with a magnifier catches almost everything.
+                            Work down this list before you call it finished:</p>
+                        <ul class="checklist">
+                            <li><strong>No bridges</strong> - no neighbouring pads joined by solder. Check the
+                                chip's pins first; they're the tightest thing on the board.</li>
+                            <li><strong>No dry joints</strong> - every pad has a shiny fillet touching both the
+                                pad and the part.</li>
+                            <li><strong>LED polarity</strong> - all nine lines pointing at their half-square
+                                marks.</li>
+                            <li><strong>Chip orientation</strong> - the dot is still at the top-left.</li>
+                            <li><strong>Button flat</strong> - not tilted up on one side.</li>
+                            <li><strong>Holder flush</strong> - sitting down on the board, pins soldered from
+                                the back.</li>
+                            <li><strong>Flux cleaned off</strong> - isopropyl alcohol and a small brush, then
+                                let it dry. Residue isn't purely cosmetic: over time it can go conductive, and it
+                                makes the next inspection harder.</li>
+                        </ul>
+                        <figure class="shot">
+                            <img src="/img/finished-ornament.jpg" width="1600" height="1000" loading="lazy" decoding="async" tabindex="0"
+                                 alt="The finished, lit ornament photographed against a plain dark background with all nine LEDs glowing.">
+                            <figcaption>Done. Nine LEDs, one button, one coin cell.</figcaption>
+                        </figure>
+
+                        <h3>Change the animation whenever you like</h3>
+                        <p>Whichever animation you flashed isn't permanent. Remove the battery, plug the programmer back in, open the
+                            flasher, and write a different one. Just make sure to remove the battery before hooking it up to the programmer.</p>
+                        <div class="cta-row">
+                            <a class="btn-primary" href="../">Open the animation flasher <span class="button-icon">&#10095;</span></a>
+                            <a class="btn-ghost" href="https://github.com/unixvoid/Tree_SMD_Kit" target="_blank" rel="noreferrer">Source on GitHub</a>
+                        </div>
+                    </div>
+                </section>
+                <section class="panel" id="troubleshooting" aria-labelledby="troubleshooting-title">
+                    <div class="section">
+                        <h2 id="troubleshooting-title"><span class="step-num">7</span> Troubleshooting</h2>
+                        <p>Nearly everything that goes wrong on this board is one of three things: an LED in
+                            backwards, a dry joint, or a bridge. Here's what each symptom usually means.</p>
+
+                        <div class="table-wrap">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Symptom</th>
+                                        <th scope="col">Usually means</th>
+                                        <th scope="col">What to do</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Nothing lights up at all</td>
+                                        <td>The cell is in the wrong way round</td>
+                                        <td>Take it out and refit it with the <strong>+</strong> marking facing up,
+                                            away from the board.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nothing lights, and the cell is correct</td>
+                                        <td>The programming in step 12 didn't verify, or the chip has a dry joint</td>
+                                        <td>Re-run the flasher, then inspect the chip's pins for joints that look
+                                            dull or aren't touching the pad.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>One LED much dimmer than its neighbours</td>
+                                        <td>A dry joint on one side of that LED</td>
+                                        <td>Reflow both pad joints at that LED.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>The animation stops by itself after a few minutes</td>
+                                        <td>Nothing is wrong - it auto-stops after five minutes</td>
+                                        <td>Press the button to wake it up again.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>The flasher can't find the device</td>
+                                        <td>The UPDI connection, or the board isn't getting power</td>
+                                        <td>Check the clip or probes are actually on the UPDI pads, then check the
+                                            board has power. Nothing needs pressing or holding for programming.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Two adjacent pads joined by solder</td>
+                                        <td>A bridge - too much solder on one joint</td>
+                                        <td>Add flux and drag the iron away from the bridge; the surplus solder
+                                            follows the tip. Don't try to flick it off.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="note">
+                            <strong>If you have to remove a part</strong>
+                            <p>Add flux, then heat <em>both</em> of the part's joints and slide it off with tweezers
+                                the moment the solder goes liquid. Don't lever it off one pad at a time - that's
+                                how pads get lifted off the board, and a lifted pad is a much bigger job than a
+                                refit.</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <span>Ornament assembly guide</span>
+            <span class="footer-credit">Kit, PCB and flasher by
+                <a href="https://github.com/unixvoid" target="_blank" rel="noreferrer">unixvoid</a></span>
+            <a href="../">Animation flasher &#8594;</a>
+            <a href="https://github.com/unixvoid/Tree_SMD_Kit" target="_blank" rel="noreferrer">github.com/unixvoid/Tree_SMD_Kit &#8599;</a>
+        </footer>
+    </main>
+
+    <dialog class="lightbox" aria-label="Photo, zoomed">
+        <button class="lightbox-close" type="button" autofocus>Close</button>
+        <img alt="">
+        <p class="lightbox-caption"></p>
+    </dialog>
+
+    <script type="module" src="./load.ts"></script>
+</body>
+</html>
