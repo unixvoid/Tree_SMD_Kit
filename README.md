@@ -37,7 +37,7 @@ How it works:
    Opera** (Web Serial support required), and click **Connect**.
 2. The flasher auto-detects the ATtiny1614 over UPDI and lists the animations
    published by CI at `s3://unixvoid-builds/ornament/<name>/firmware.hex`
-   (pick `demo`, `fade`, … from the dropdown).
+   (pick `demo`, `pong`, … from the dropdown).
 3. Click **Program Device** — the `.hex` is fetched, flashed over UPDI,
    verified, and the BOD fuse is programmed to keep the coin cell safe.
 
@@ -101,10 +101,13 @@ and resizing to 1600 px would bring the page down to around 2 MB.
 | Animation | What it does | Power notes |
 |-----------|--------------|-------------|
 | `demo` | Zigzag snake, sequential sweep, random sparkle | Up to 3 LEDs on at once |
-| `fade` | Breathing chase: each of the 9 LEDs fades in/out in turn | One LED at a time, brightness capped at 50% (`fadeMax = 128`), software PWM (~833 Hz) so it works on all pins |
+| `pong` | Fast ping-pong chase alternating with "meet in the middle" sweeps (both ends, then 1 in from each side, ... to the single middle LED, then back out) | Up to 2 LEDs at once, full brightness (no PWM) |
+| `snowfall` | Flakes drop from the tree apex and fall down either side with a one-step trail, at randomized intervals | Up to 4 LEDs at once (2 flakes + trails), full brightness (no PWM) |
 
-Tune the fade in `src/fade/main.cpp`: `fadeMax` (0–255 brightness cap),
-`fadeSteps` (smoothness), `slicePeriodUs` / `pwmSlices` (PWM frequency vs CPU).
+Tune the pattern in `src/pong/main.cpp`: `pingStepMs` (chase speed),
+`pingPasses` (traversals per ping-pong phase), `meetStepMs` /
+`meetRepeats` (meet-in-the-middle speed and repeats), and
+`animationMinutes` (how long it runs before sleeping).
 
 ## Build & flash
 
@@ -114,14 +117,14 @@ One PlatformIO environment per animation — the env name **is** the animation n
 [env:demo]
 build_src_filter = +<demo/>
 
-[env:fade]
-build_src_filter = +<fade/>
+[env:pong]
+build_src_filter = +<pong/>
 ```
 
 ```sh
 pio run              # build all animations
-pio run -e fade      # build just fade
-pio run -e fade -t upload   # flash via serialupdi
+pio run -e pong      # build just pong
+pio run -e pong -t upload   # flash via serialupdi
 ```
 
 Adding an animation: copy `src/demo/` to `src/<name>/`, edit it, and add a
